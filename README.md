@@ -1,4 +1,4 @@
-# Prototipando-Um-Educador-Financeiro-Inteligente-com-IA
+# Prototipando-Um-Educador-Financeiro-Inteligente-com-IA - 1ª Parte
 
 Prototipação de Educador Financeiro Inteligente com IA e Aplicativo em Código Front-End.
 
