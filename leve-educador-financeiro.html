@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leve — Educador Financeiro Inteligente</title>
+<style>
+  :root{
+    --paper:#F3F6F5;
+    --ink:#16283D;
+    --ink-soft:#3E5164;
+    --teal:#2E7D6B;
+    --teal-dark:#1F5A4D;
+    --amber:#D98A2B;
+    --red:#B4483A;
+    --line:#D8E1DE;
+    --card:#FFFFFF;
+    --radius:10px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Segoe UI', Verdana, sans-serif;
+    line-height:1.5;
+  }
+  h1,h2,h3{
+    font-family:Georgia,'Times New Roman',serif;
+    font-weight:700;
+    margin:0 0 6px 0;
+    color:var(--ink);
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:28px 20px 60px;}
+
+  /* Header */
+  header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    border-bottom:2px solid var(--ink);
+    padding-bottom:16px;
+    margin-bottom:28px;
+  }
+  header .brand{font-size:28px;letter-spacing:.5px;}
+  header .brand span{color:var(--teal);}
+  header .tag{font-size:13px;color:var(--ink-soft);max-width:220px;text-align:right;}
+
+  /* Hero */
+  .hero{
+    background:var(--ink);
+    color:var(--paper);
+    border-radius:var(--radius);
+    padding:26px 28px;
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:20px;
+    margin-bottom:32px;
+  }
+  .hero h2{color:#fff;font-size:22px;}
+  .hero p{color:#C7D3D0;font-size:14px;margin:8px 0 0;}
+  .hero .num{font-size:42px;font-family:Georgia,serif;color:var(--teal);}
+  .hero .num small{display:block;font-family:'Segoe UI',sans-serif;font-size:12px;color:#9FB0AC;font-weight:400;}
+
+  section{margin-bottom:34px;}
+  .section-title{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:8px;
+    margin-bottom:16px;
+  }
+  .section-title h3{font-size:19px;}
+  .section-title .n{color:var(--teal);font-size:14px;font-family:Georgia,serif;}
+
+  /* Expense cards */
+  .expenses{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .expense-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:14px 16px;
+  }
+  .expense-card .top{display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px;}
+  .expense-card .top b{font-weight:600;}
+  .bar-track{background:#EAEFEE;border-radius:6px;height:8px;overflow:hidden;}
+  .bar-fill{height:100%;background:var(--teal);border-radius:6px;transition:width .3s ease;}
+  .bar-fill.warn{background:var(--amber);}
+  .bar-fill.over{background:var(--red);}
+  .expense-card .msg{font-size:12px;margin-top:6px;color:var(--ink-soft);}
+  .expense-card .msg.alert{color:var(--red);font-weight:600;}
+  .expense-card input[type=range]{width:100%;margin-top:8px;accent-color:var(--teal);}
+
+  /* Simulator */
+  .sim{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:20px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+  }
+  .sim-inputs label{display:block;font-size:13px;color:var(--ink-soft);margin:12px 0 4px;}
+  .sim-inputs input{
+    width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:6px;
+    font-size:14px;color:var(--ink);
+  }
+  .sim-result{border-left:1px solid var(--line);padding-left:24px;display:flex;flex-direction:column;justify-content:center;}
+  .sim-result .big{font-family:Georgia,serif;font-size:34px;color:var(--teal-dark);}
+  .sim-result .lbl{font-size:12px;color:var(--ink-soft);}
+  .sim-result .row{margin-bottom:14px;}
+
+  /* Tips */
+  .tip-filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
+  .tip-filters select{
+    padding:7px 10px;border:1px solid var(--line);border-radius:6px;font-size:13px;background:#fff;
+  }
+  .tips-list{display:grid;gap:10px;}
+  .tip{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:12px 16px;font-size:14px;border-left:4px solid var(--teal);
+  }
+  .tip b{display:block;font-size:13px;color:var(--teal-dark);margin-bottom:2px;}
+
+  footer{
+    font-size:12px;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:14px;
+  }
+
+  @media(max-width:640px){
+    .hero,.sim,.expenses{grid-template-columns:1fr;}
+    .sim-result{border-left:none;border-top:1px solid var(--line);padding-left:0;padding-top:16px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand">Le<span>ve</span></div>
+    <div class="tag">Educador financeiro inteligente para quem quer sair do cartão de crédito no sufoco</div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h2>Você não precisa entender de economia para organizar sua vida financeira.</h2>
+      <p>O Leve acompanha seus gastos, simula sua saída da dívida e te dá dicas no seu ritmo — sem termos técnicos e sem julgamento.</p>
+    </div>
+    <div>
+      <div class="num" id="heroDebt">R$ 4.200<small>dívida atual no cartão</small></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title"><h3>Painel simples de gastos</h3><span class="n">recurso 1</span></div>
+    <div class="expenses" id="expenseGrid"></div>
+  </section>
+
+  <section>
+    <div class="section-title"><h3>Simulador de metas: quando eu me livro da dívida?</h3><span class="n">recurso 2</span></div>
+    <div class="sim">
+      <div class="sim-inputs">
+        <label for="debtInput">Total da dívida no cartão (R$)</label>
+        <input type="number" id="debtInput" value="4200" min="0">
+        <label for="payInput">Quanto consigo pagar por mês (R$)</label>
+        <input type="number" id="payInput" value="450" min="1">
+        <label for="rateInput">Juros do cartão ao mês (%)</label>
+        <input type="number" id="rateInput" value="8" min="0" step="0.1">
+      </div>
+      <div class="sim-result">
+        <div class="row">
+          <div class="big" id="monthsOut">—</div>
+          <div class="lbl">meses até zerar a dívida</div>
+        </div>
+        <div class="row">
+          <div class="big" id="interestOut">—</div>
+          <div class="lbl">total pago em juros, se mantiver esse ritmo</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title"><h3>Dicas personalizadas</h3><span class="n">recurso 3</span></div>
+    <div class="tip-filters">
+      <select id="fRenda">
+        <option value="baixa">Renda até R$ 2.000</option>
+        <option value="media" selected>Renda de R$ 2.000 a R$ 5.000</option>
+        <option value="alta">Renda acima de R$ 5.000</option>
+      </select>
+      <select id="fObjetivo">
+        <option value="dividas" selected>Objetivo: quitar dívidas</option>
+        <option value="reserva">Objetivo: montar reserva</option>
+        <option value="organizar">Objetivo: organizar o mês</option>
+      </select>
+    </div>
+    <div class="tips-list" id="tipsList"></div>
+  </section>
+
+  <footer>
+    Todas as recomendações são educativas e não substituem orientação financeira profissional. Nenhum dado sensível é solicitado ou armazenado nesta demonstração.
+  </footer>
+</div>
+
+<script>
+// ---------- Painel de gastos ----------
+const expenses = [
+  { nome:"Cartão de crédito", limite:1500, gasto:1380 },
+  { nome:"Alimentação", limite:800, gasto:520 },
+  { nome:"Transporte", limite:300, gasto:295 },
+  { nome:"Lazer", limite:250, gasto:90 },
+];
+
+function renderExpenses(){
+  const grid = document.getElementById('expenseGrid');
+  grid.innerHTML = '';
+  expenses.forEach((e, i) => {
+    const pct = Math.min(100, Math.round((e.gasto / e.limite) * 100));
+    let barClass = '', msg = `${pct}% do limite de R$ ${e.limite}`, msgClass = '';
+    if (pct >= 100) { barClass = 'over'; msg = 'Limite estourado — revise esse gasto este mês.'; msgClass='alert'; }
+    else if (pct >= 85) { barClass = 'warn'; msg = 'Quase no limite. Fique de olho.'; msgClass='alert'; }
+
+    const card = document.createElement('div');
+    card.className = 'expense-card';
+    card.innerHTML = `
+      <div class="top"><b>${e.nome}</b><span>R$ ${e.gasto}</span></div>
+      <div class="bar-track"><div class="bar-fill ${barClass}" style="width:${pct}%"></div></div>
+      <div class="msg ${msgClass}">${msg}</div>
+      <input type="range" min="0" max="${e.limite * 1.3}" value="${e.gasto}" data-idx="${i}">
+    `;
+    grid.appendChild(card);
+  });
+
+  grid.querySelectorAll('input[type=range]').forEach(inp => {
+    inp.addEventListener('input', ev => {
+      expenses[ev.target.dataset.idx].gasto = Number(ev.target.value);
+      renderExpenses();
+    });
+  });
+}
+renderExpenses();
+
+// ---------- Simulador de dívida ----------
+function calcSimulacao(){
+  const divida = Number(document.getElementById('debtInput').value) || 0;
+  const pagamento = Number(document.getElementById('payInput').value) || 1;
+  const taxa = (Number(document.getElementById('rateInput').value) || 0) / 100;
+
+  let saldo = divida, meses = 0, jurosTotal = 0;
+  while (saldo > 0 && meses < 600){
+    const juros = saldo * taxa;
+    jurosTotal += juros;
+    saldo = saldo + juros - pagamento;
+    meses++;
+    if (pagamento <= divida * taxa && meses > 1){ meses = null; break; } // nunca quita
+  }
+
+  const monthsOut = document.getElementById('monthsOut');
+  const interestOut = document.getElementById('interestOut');
+  if (meses === null){
+    monthsOut.textContent = '∞';
+    monthsOut.style.color = 'var(--red)';
+    interestOut.textContent = 'Pagamento não cobre os juros';
+  } else {
+    monthsOut.style.color = 'var(--teal-dark)';
+    monthsOut.textContent = meses;
+    interestOut.textContent = 'R$ ' + jurosTotal.toFixed(0);
+  }
+}
+['debtInput','payInput','rateInput'].forEach(id =>
+  document.getElementById(id).addEventListener('input', calcSimulacao)
+);
+calcSimulacao();
+
+// ---------- Dicas personalizadas ----------
+const tips = [
+  { renda:'baixa', objetivo:'dividas', titulo:'Negocie antes de deixar atrasar', texto:'Ligue para o banco e peça uma condição especial de pagamento — muitas vezes reduzem os juros só por você entrar em contato.' },
+  { renda:'baixa', objetivo:'reserva', titulo:'Comece com R$ 20 por semana', texto:'Guardar pouco e sempre cria o hábito. O valor cresce depois que a dívida diminuir.' },
+  { renda:'baixa', objetivo:'organizar', titulo:'Anote tudo por 7 dias', texto:'Antes de cortar gastos, entenda para onde o dinheiro está indo. Um caderno ou o próprio app já ajuda.' },
+  { renda:'media', objetivo:'dividas', titulo:'Ataque a dívida mais cara primeiro', texto:'Pague o mínimo nas outras contas e concentre o dinheiro extra na dívida com juros mais alto — geralmente o cartão.' },
+  { renda:'media', objetivo:'reserva', titulo:'Separe 10% assim que o salário cair', texto:'Automatize uma transferência no dia do pagamento, antes de qualquer outro gasto.' },
+  { renda:'media', objetivo:'organizar', titulo:'Revise assinaturas todo trimestre', texto:'Serviços que você não usa mais costumam ser o vazamento mais fácil de fechar.' },
+  { renda:'alta', objetivo:'dividas', titulo:'Considere portabilidade de dívida', texto:'Bancos e fintechs às vezes oferecem taxas menores para assumir sua dívida de cartão — vale comparar.' },
+  { renda:'alta', objetivo:'reserva', titulo:'Defina uma meta com prazo', texto:'Reserva sem prazo vira gasto. Escolha um valor e uma data e acompanhe mês a mês.' },
+  { renda:'alta', objetivo:'organizar', titulo:'Separe conta de gasto fixo e variável', texto:'Isso deixa mais fácil enxergar onde há espaço para economizar sem sofrimento.' },
+];
+
+function renderTips(){
+  const renda = document.getElementById('fRenda').value;
+  const objetivo = document.getElementById('fObjetivo').value;
+  const list = document.getElementById('tipsList');
+  list.innerHTML = '';
+  tips.filter(t => t.renda === renda && t.objetivo === objetivo)
+      .forEach(t => {
+        const el = document.createElement('div');
+        el.className = 'tip';
+        el.innerHTML = `<b>${t.titulo}</b>${t.texto}`;
+        list.appendChild(el);
+      });
+}
+document.getElementById('fRenda').addEventListener('change', renderTips);
+document.getElementById('fObjetivo').addEventListener('change', renderTips);
+renderTips();
+</script>
+</body>
+</html>
