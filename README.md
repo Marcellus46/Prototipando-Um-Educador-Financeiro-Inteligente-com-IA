@@ -18,8 +18,6 @@ Estrutura de Código.
 
 - Html Front-End
 
-Link do Aplicativo Já feito
 
-file:///C:/Users/MARCELO%20MARINHO/Documents/leve-educador-financeiro.html
 
 
